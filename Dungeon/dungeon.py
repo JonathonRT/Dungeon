@@ -11,18 +11,11 @@ def intro():
 def main():
     print "What would you like to do?"
     action = raw_input ("> ")
-    if action == "health":
-        dungeon_stats.health_check()
-        main()
-    elif action == "mana":
-        dungeon_stats.mana_check()
-        main()
-    elif action == "exp":
-        dungeon_stats.exp_check()
+    if action == "stats":
+        dungeon_stats.stats()
         main()
     elif action == "help":
-        print """Type "health" to check your current amoutn of health. Type "mana" to check your current amount of mana.
-        Type "exp" to check your current Experience points. Type "exit" to quit. Type "battle" to begin a battle."""
+        print """Type "stats" to check your current stats, uncluding health, mana, etc. Type "battle" to begin a battle. Type "exit" to quit."""
         main()
     elif action == "exit":
         exit(0)
