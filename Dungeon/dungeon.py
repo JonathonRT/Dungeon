@@ -2,10 +2,6 @@ import random
 import dungeon_stats
 import dungeon_battle
 
-##This is just a basic intro, and then starts the main part of the game.
-def intro():
-    print """Welcome to Dungeon, Where you will bettle great monsters, And seek great treasures. Shall we begin?"""
-    main()
 
 ##The main part of the game, here users decide what to do, like check stats, or initiate a battle.
 def main():
@@ -27,8 +23,7 @@ def main():
         main()
 
 
-##These are the basic instructions to greet the player, and start the game.
-start = 1
-if start == 1:
-    start = 0
-    intro()
+##This is just a basic intro, and then starts the main part of the game.
+
+print """Welcome to Dungeon, Where you will bettle great monsters, And seek great treasures. Shall we begin?"""
+main()

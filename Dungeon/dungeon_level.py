@@ -1,95 +1,34 @@
+##This file handles the leveling system
 import dungeon_stats
+import random
 
+##Level check compares current experience to the required experience, and acts accordingly.
 def level_check():
-    if dungeon_stats.level == 1:
-        if dungeon_stats.exp >= 200:
-            print "Congratulations! You have reach level 2!"
-            dungeon_stats.max_health += 50
-            dungeon_stats.health = dungeon_stats.max_health
-            dungeon_stats.max_mana += 10
-            dungeon_stats.mana = dungeon_stats.max_mana
-            dungeon_stats.attack += 1
-            dungeon_stats.defense += 1
-            dungeon_stats.magic_attack += 1
-            dungeon_stats.level = 2
-            print """            Max HP increased by 50
-            Max Mana increased by 10
-            Attack increased by 1
-            Defense increased by 1
-            Magic Attack increased by 1"""
-        else:
-            print "You are", (200 - dungeon_stats.exp), "Away from level 2"
-    elif dungeon_stats.level == 2:
-        if dungeon_stats.exp >= 1000:
-            print "Congratulations! You have reach level 3!"
-            dungeon_stats.max_health += 70
-            dungeon_stats.health = dungeon_stats.max_health
-            dungeon_stats.max_mana += 15
-            dungeon_stats.mana = dungeon_stats.max_mana
-            dungeon_stats.attack += 4
-            dungeon_stats.defense += 3
-            dungeon_stats.magic_attack += 4
-            dungeon_stats.level = 3
-            print """            Max HP increased by 70
-            Max Mana increased by 15
-            Attack increased by 4
-            Defense increased by 3
-            Magic Attack increased by 4"""
-        else:
-            print "You are", (1000 - dungeon_stats.exp), "Away from level 3"
-    elif dungeon_stats.level == 3:
-        if dungeon_stats.exp >= 4000:
-            print "Congratulations! You have reach level 4!"
-            dungeon_stats.max_health += 80
-            dungeon_stats.health = dungeon_stats.max_health
-            dungeon_stats.max_mana += 25
-            dungeon_stats.mana = dungeon_stats.max_mana
-            dungeon_stats.attack += 8
-            dungeon_stats.defense += 5
-            dungeon_stats.magic_attack += 8
-            dungeon_stats.level = 4
-            print """            Max HP increased by 80
-            Max Mana increased by 25
-            Attack increased by 8
-            Defense increased by 5
-            Magic Attack increased by 8"""
-        else:
-            print "You are", (4000 - dungeon_stats.exp), "Away from level 4"
-    elif dungeon_stats.level == 4:
-        if dungeon_stats.exp >= 10000:
-            print "Congratulations! You have reach level 5!"
-            dungeon_stats.max_health += 90
-            dungeon_stats.health = dungeon_stats.max_health
-            dungeon_stats.max_mana += 10
-            dungeon_stats.mana = dungeon_stats.max_mana
-            dungeon_stats.attack += 5
-            dungeon_stats.defense += 9
-            dungeon_stats.magic_attack += 3
-            dungeon_stats.level = 5
-            print """            Max HP increased by 90
-            Max Mana increased by 10
-            Attack increased by 5
-            Defense increased by 9
-            Magic Attack increased by 3"""
-        else:
-            print "You are", (10000 - dungeon_stats.exp), "Away from level 5"
-    elif dungeon_stats.level == 5:
-        if dungeon_stats.exp >= 18000:
-            print "Congratulations! You have reach level 5!"
-            dungeon_stats.max_health += 100
-            dungeon_stats.health = dungeon_stats.max_health
-            dungeon_stats.max_mana += 0
-            dungeon_stats.mana = dungeon_stats.max_mana
-            dungeon_stats.attack += 8
-            dungeon_stats.defense += 2
-            dungeon_stats.magic_attack += 2
-            dungeon_stats.level = 5
-            print """            Max HP increased by 100
-            Max Mana increased by 0
-            Attack increased by 8
-            Defense increased by 2
-            Magic Attack increased by 2"""
-        else:
-            print "You are", (18000 - dungeon_stats.exp), "Away from level 5"
+    if dungeon_stats.exp >= dungeon_stats.tnl:
+        print "Congratulations! You have reach level ", dungeon_stats.level + 1, "!"
+
+        ##The following code generates random stat gains for the character if a level up is achieved, and prints out which stats were increased by how much.
+        dungeon_stats.hpup = random.randint(40,70)
+        dungeon_stats.max_health += dungeon_stats.hpup
+        dungeon_stats.health = dungeon_stats.max_health
+        dungeon_stats.mpup = random.randint(10,20)
+        dungeon_stats.max_mana += dungeon_stats.mpup
+        dungeon_stats.mana = dungeon_stats.max_mana
+        dungeon_stats.atkup = random.randint(2,6)
+        dungeon_stats.attack += dungeon_stats.atkup
+        dungeon_stats.defup = random.randint(2,6)
+        dungeon_stats.defense += dungeon_stats.defup
+        dungeon_stats.magup = random.randint(2,6)
+        dungeon_stats.magic_attack += dungeon_stats.magup
+        dungeon_stats.level += 1
+        dungeon_stats.tnl = dungeon_stats.tnl * 4
+        print "Max HP increased by ", dungeon_stats.hpup
+        print "Max Mana increased by ", dungeon_stats.mpup
+        print "Attack increased by ", dungeon_stats.atkup
+        print "Defense increased by ", dungeon_stats.defup
+        print "Magic Attack increased by ", dungeon_stats.magup
+        print "You are ", (dungeon_stats.tnl - dungeon_stats.exp), " experience points away from level ", dungeon_stats.level + 1
+
+    ##If more experience is needed, this'll print how much more is needed.
     else:
-        print "Probable Error...Review dungeon_level"
+        print "You are ", (dungeon_stats.tnl - dungeon_stats.exp), " experience points away from level ", dungeon_stats.level + 1
