@@ -1,0 +1,59 @@
+Version 0.1
+
+    Initial post on github, containing dungeon, dungeon_battle, and dungeon_stats.
+    dungeon:
+        Intro, main commands.
+    dungeon_stats:
+        Basic stats were made, hp, mp, exp.
+    dungeon_battle:
+        Basic battle system, single enemy, turn based.
+        
+    
+Version 0.2
+
+    Changes to all files, added dungeon_level
+    dungeon:
+        Changed stats command to display all relevant player stats instead of hp or mp seperately.
+    dungeon stats:
+    dungeon_battle:
+        Added a second enemy, bats, added more battle commands, run, fight, help, magic.
+    dungeon_level:
+        Added a leveling system, each level increasing stats, up to level 6.
+        
+        
+Version 0.3
+
+    Changes to all files, added dungeon_enemy
+    dungeon:
+        Changed intro and engine start
+    dungeon_battle:
+        Removed enemies from the battle file and put them in their file.
+        Changed commands so they work from a command list instead of elif statements.
+        General changes to commands, tweaking certain values for balance, etc.
+    dungeon_level:
+        Entirely rewritten, now generates level automatically with random stat gains instead of coding each level seperately.
+    dungeon_stats:
+        Added a few stats for characters and enemies.
+    dungeon_enemy:
+        Seperated enemies from the battle system file to their own file.
+        Each enemy uses the same template, easy to expand.
+        
+        
+Version 0.4
+
+    Changes to most files, added dungeon_item
+    dungeon:
+        Changed from elif to commands.
+    dungeon_battle:
+        Cleaned up all battle commands to make them more efficient and better to read.
+        Added item command to use items from inventory, also receive item drops from enemy kills.
+    dungeon_enemy:
+        Changed enemies from elif to def commands
+        Added Wolf enemy.
+    dungeon_stats:
+        Added variables for items.
+    dungeon_level:
+        Changed exp range.
+    dungeon_item:
+        Added inventory, potion, ether.
+        Items made as def commands.

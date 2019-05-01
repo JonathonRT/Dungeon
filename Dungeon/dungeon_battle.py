@@ -4,6 +4,7 @@ import random
 import dungeon_stats
 import dungeon_level
 import dungeon_enemy
+import dungeon_item
 
 ##This begins the battle phase
 def battle():
@@ -12,9 +13,24 @@ def battle():
 
     ##Loop will stay active as long as enemy is alive
     while dungeon_stats.inbattle > 0:
-        print "What will you do?"
-        action = raw_input("> ")
-        commands[action]()
+        print("What will you do?")
+        action = input("> ")
+        if action in commands:
+            commands[action]()
+            if dungeon_stats.enemy_hp <= 0:
+                print ("You won!")
+                prize = random.randint(1,9)
+                if prize < dungeon_stats.item_chance:
+                    dungeon_item.inventory.append(dungeon_stats.item)
+                    print('Received ', dungeon_stats.item, '!')
+                print ("You have gained", dungeon_stats.enemy_exp, "EXP!")
+                dungeon_stats.exp += dungeon_stats.enemy_exp
+                dungeon_level.level_check()
+                dungeon_stats.inbattle = 0
+            else:
+                enemy_turn()
+        else:
+            help()
 
 ##These Definitions control the various commands.
 
@@ -22,57 +38,40 @@ def battle():
 def fight():
         damage = ((random.randint(1,5) * dungeon_stats.attack) / dungeon_stats.enemy_defense)
         dungeon_stats.enemy_hp -= damage
-        print "You did ", damage, "damage."
-        if dungeon_stats.enemy_hp <= 0:
-            print "You won!"
-            print "You have gained", dungeon_stats.enemy_exp, "EXP!"
-            dungeon_stats.exp += dungeon_stats.enemy_exp
-            dungeon_level.level_check()
-            dungeon_stats.inbattle = 0
-        else:
-            enemy_turn()
+        print ("You did ", damage, "damage.")
 
 ##Magic - Players equipped magic attack.
 def magic():
     if dungeon_stats.mana < dungeon_stats.magcost:
-        print "You don't have enough Mana..."
+        print ("You don't have enough Mana...")
     else:
         magic_damage = (random.randint(2,7) * dungeon_stats.magic_attack)
         dungeon_stats.enemy_hp -= magic_damage
-        print "You cast Magic..."
-        print dungeon_stats.enemy_name, " takes ", magic_damage, " in magic damage."
+        print ("You cast Magic...")
+        print (dungeon_stats.enemy_name, " takes ", magic_damage, " in magic damage.")
         dungeon_stats.mana -= 5
-        if dungeon_stats.enemy_hp <= 0:
-            print "You won!"
-            print "You have gained", dungeon_stats.enemy_exp, "EXP!"
-            dungeon_stats.exp += dungeon_stats.enemy_exp
-            dungeon_level.level_check()
-            dungeon_stats.inbattle = 0
-        else:
-            enemy_turn()
 
 ##Escape - Attempts escape from battle
 def escape():
     if dungeon_stats.escape > random.randint(0,9):
-        print "You have Escaped."
+        print ("You have Escaped.")
         dungeon_stats.inbattle = 0
     else:
-        print "You failed to escape..."
-        enemy_turn()
+        print ("You failed to escape...")
 
 ##This command gives info about the commands available to the player.
 def help():
-    print """Type "fight" to do a regular attack. Type "magic" to use a magic spell attack. Type "run" if you need to try escaping."""
+    print ('Type "fight" to do a regular attack. Type "magic" to use a magic spell attack. Type "item" to use an item from your inventory. Type "run" if you need to try escaping.')
 
 ##This runs through the enemies turn.
 def enemy_turn():
     enemy_damage = ((random.randint(1,4) * dungeon_stats.enemy_attack) / dungeon_stats.defense)
     dungeon_stats.health -= enemy_damage
-    print dungeon_stats.enemy_name, " did ", enemy_damage, "damage to you. You have ", dungeon_stats.health, "remaining."
+    print (dungeon_stats.enemy_name, " did ", enemy_damage, "damage to you. You have ", dungeon_stats.health, "remaining.")
     if dungeon_stats.health <= 0:
-        print "You died!"
-        raw_input("> ")
+        print ("You died!")
+        input("> ")
         exit()
     
 ##The various commands available during battle.   
-commands = {"fight": fight, "magic": magic, "run": escape, "help": help}
+commands = {"fight": fight, "magic": magic, "run": escape, "help": help, "item": dungeon_item.useitem}
