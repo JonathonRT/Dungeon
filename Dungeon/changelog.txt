@@ -15,6 +15,7 @@ Version 0.2
     dungeon:
         Changed stats command to display all relevant player stats instead of hp or mp seperately.
     dungeon stats:
+        Added more stats, exp, attack, defense, magic attack, and added enemy stats.
     dungeon_battle:
         Added a second enemy, bats, added more battle commands, run, fight, help, magic.
     dungeon_level:
